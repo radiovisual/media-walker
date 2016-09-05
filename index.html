@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Media Walker</title>
+
+    <script async>
+			window.onload = function() {
+				setupPage();
+			}
+		</script>
+
+    <style>
+      #playback-btns {
+        position: fixed;
+        top:0; left: 0;
+        width:100%;
+        height: 80px;
+        z-index: 2;
+        background-color: white;
+      }
+      #subtitles {
+        margin-top: 80px;
+      }
+      .subtitle {
+        width: 100%;
+        border-bottom: solid thin #e6e6e6;
+        font-size: 16px;
+        color: #969696;
+      }
+      .subtitle p {
+        width: 100%;
+        display: block;
+        margin: 0 auto;
+        padding: 10px;
+      }
+      .subtitle:hover {
+        color: #000;
+        cursor:pointer;
+      }
+      .subtitle small {
+        display: none;
+      }
+      #subtitle-wrapper {
+        width:100%;
+        height: 100%;
+        overflow: scroll;
+      }
+
+    </style>
+  </head>
+  <body>
+    <div id="playback-btns">
+      <button id="play-btn">Play</button>
+      <button id="pause-btn">Pause</button>
+      <button id="vol-down">Vol -</button>
+      <button id="vol-up">Vol +</button>
+      <button id="speed-down">Speed .5</button>
+      <button id="speed-normal">Speed 1</button>
+      <button id="speed-up">Speed 1.5</button>
+    </div>
+
+    <div id="subtitles">
+      <div id="subtitles-wrapper">
+        <!-- inject subtitles here -->
+        Loading subtitles...
+      </div>
+    </div>
+  </body>
+  <script>
+    require('./renderer.js');
+  </script>
+</html>
