@@ -35,7 +35,7 @@ $ npm install
 
 # Usage
 
-**Step One:** Launch your video file along with VLC's Telnet interface from the terminal:
+**Step One:** Launch your video file along with VLC's Telnet interface from your **terminal** application.
 ```
 $ <path_to_vlc> --extraintf telnet --telnet-password mediawalker file://<path_to_file>
 ```
