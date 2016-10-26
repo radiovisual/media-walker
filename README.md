@@ -53,7 +53,7 @@ $ electron main.js --subs=<path_to_srt_file>
 
 # Example Setup
 
-Here is an example of launching the movie **inception.mp4** using the subtitle file called **inception.srt**. Each command is launched in a *seperate terminal window*:
+Here is an example of launching the movie **inception.mp4** using the subtitle file called **inception-subs.srt**. Each command is launched in a *seperate terminal window*:
 
 ```
 /Applications/VLC.app/Contents/MacOS/VLC --extraintf telnet --telnet-password mediawalker file://inception.mp4
