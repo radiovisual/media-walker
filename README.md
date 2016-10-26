@@ -42,12 +42,6 @@ $ <path_to_vlc> --extraintf telnet --telnet-password mediawalker file://<path_to
 
 Where `<path_to_vlc>` could be any use of these three default locations (if VLC is not on your system PATH):
 
-Example: 
-
-```
-/Applications/VLC.app/Contents/MacOS/VLC --extraintf telnet --telnet-password mediawalker file://inception.mp4
-```
-
 - **MacOS**: `/Applications/VLC.app/Contents/MacOS/VLC`
 - **Windows**: `C:\Program Files (x86)\VideoLAN\VLC\vlc.exe`
 - **Linux**: `/usr/bin/vlc`
@@ -57,9 +51,12 @@ Example:
 $ electron main.js --subs=<path_to_srt_file>
 ```
 
-Example: 
+# Example Setup
+
+Here is an example of launching the movie **inception.mp4** using the subtitle file called **inception.srt**. Each command is launched in a *seperate terminal window*:
 
 ```
+/Applications/VLC.app/Contents/MacOS/VLC --extraintf telnet --telnet-password mediawalker file://inception.mp4
 /Applications/VLC.app/Contents/MacOS/VLC --extraintf telnet --telnet-password mediawalker file://inception-subs.srt
 ```
 
