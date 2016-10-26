@@ -42,6 +42,12 @@ $ <path_to_vlc> --extraintf telnet --telnet-password mediawalker file://<path_to
 
 Where `<path_to_vlc>` could be any use of these three default locations (if VLC is not on your system PATH):
 
+Example: 
+
+```
+/Applications/VLC.app/Contents/MacOS/VLC --extraintf telnet --telnet-password mediawalker file://inception.mp4
+```
+
 - **MacOS**: `/Applications/VLC.app/Contents/MacOS/VLC`
 - **Windows**: `C:\Program Files (x86)\VideoLAN\VLC\vlc.exe`
 - **Linux**: `/usr/bin/vlc`
@@ -49,6 +55,12 @@ Where `<path_to_vlc>` could be any use of these three default locations (if VLC 
 **Step Two:** In a new terminal window (seperate from the one used in step one), browse to your cloned media-walker repo and launch mediawalker with your subtitle file for the video file you just launched.
 ```
 $ electron main.js --subs=<path_to_srt_file>
+```
+
+Example: 
+
+```
+/Applications/VLC.app/Contents/MacOS/VLC --extraintf telnet --telnet-password mediawalker file://inception-subs.srt
 ```
 
 # License
