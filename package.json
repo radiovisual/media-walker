@@ -1,17 +1,19 @@
 {
   "name": "media-walker",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Use a video's subtitles as a remote control for the VLC Media Player.",
-  "main": "main.js",
+  "main": "dist-electron/main/index.js",
   "scripts": {
-    "start-vlc": "/Applications/VLC.app/Contents/MacOS/VLC --extraintf telnet --telnet-password mediawalker file:///Users/michael/gitprojects/media-walker/test_video/Inception.mp4",
-    "start": "electron main.js --subs=/Users/michael/gitprojects/srt-to-obj/test/fixtures/subtitles_long.srt",
-    "debug": "electron main.js --debug --subs=/Users/michael/gitprojects/srt-to-obj/test/fixtures/subtitles_long.srt"
+    "start-vlc": "vlc --extraintf telnet --telnet-password mediawalker sample-media/sample.mp4",
+    "start": "vite",
+    "build": "tsc && vite build && electron-builder",
+    "preview": "vite preview"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/radiovisual/media-walker"
   },
+  "type": "module",
   "keywords": [
     "learning",
     "language",
@@ -24,25 +26,42 @@
   ],
   "author": {
     "name": "Michael Wuergler",
-    "email": "senjudev@gmail.com",
-    "url": "http://numetriclabs.com"
+    "email": "wuergler@gmail.com",
+    "url": "https://github.com/radiovisual"
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://https://github.com/radiovisual/media-walker/issues"
+    "url": "https://github.com/radiovisual/media-walker/issues"
+  },
+  "debug": {
+    "env": {
+      "VITE_DEV_SERVER_URL": "http://127.0.0.1:7777/"
+    }
   },
   "homepage": "https://github.com/radiovisual/media-walker#readme",
-  "devDependencies": {
-    "electron": "^1.3.4"
-  },
   "dependencies": {
-    "is-video": "^1.0.1",
-    "jquery": "^3.1.0",
-    "nconf": "^0.8.4",
-    "shelljs": "^0.7.4",
-    "srt-to-obj": "0.0.2",
-    "timestamp-to-milliseconds": "0.0.1",
-    "timestamp-to-seconds": "0.0.1",
-    "user-home": "^2.0.0"
+    "electron-unhandled": "^5.0.0",
+    "electron-updater": "^6.1.8",
+    "flowbite": "^2.3.0",
+    "srt-to-obj": "^0.0.3",
+    "timestamp-to-milliseconds": "^0.0.1",
+    "timestamp-to-seconds": "^0.0.2"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.64",
+    "@types/react-dom": "^18.2.21",
+    "@vitejs/plugin-react": "^4.2.1",
+    "autoprefixer": "^10.4.18",
+    "electron": "^29.1.1",
+    "electron-builder": "^24.13.3",
+    "postcss": "^8.4.35",
+    "postcss-import": "^16.0.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5.4.2",
+    "vite": "^5.1.5",
+    "vite-plugin-electron": "^0.28.4",
+    "vite-plugin-electron-renderer": "^0.14.5"
   }
 }

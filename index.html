@@ -1,73 +1,24 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <meta charset="UTF-8">
-    <title>Media Walker</title>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css"
+      rel="stylesheet"
+    />
 
-    <script async>
-			window.onload = function() {
-				setupPage();
-			}
-		</script>
-
-    <style>
-      #playback-btns {
-        position: fixed;
-        top:0; left: 0;
-        width:100%;
-        height: 80px;
-        z-index: 2;
-        background-color: white;
-      }
-      #subtitles {
-        margin-top: 80px;
-      }
-      .subtitle {
-        width: 100%;
-        border-bottom: solid thin #e6e6e6;
-        font-size: 16px;
-        color: #969696;
-      }
-      .subtitle p {
-        width: 100%;
-        display: block;
-        margin: 0 auto;
-        padding: 10px;
-      }
-      .subtitle:hover {
-        color: #000;
-        cursor:pointer;
-      }
-      .subtitle small {
-        display: none;
-      }
-      #subtitle-wrapper {
-        width:100%;
-        height: 100%;
-        overflow: scroll;
-      }
-
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="script-src 'self' 'unsafe-inline';"
+    />
+    <title>Mediawalker</title>
   </head>
-  <body>
-    <div id="playback-btns">
-      <button id="play-btn">Play</button>
-      <button id="pause-btn">Pause</button>
-      <button id="vol-down">Vol -</button>
-      <button id="vol-up">Vol +</button>
-      <button id="speed-down">Speed .5</button>
-      <button id="speed-normal">Speed 1</button>
-      <button id="speed-up">Speed 1.5</button>
-    </div>
 
-    <div id="subtitles">
-      <div id="subtitles-wrapper">
-        <!-- inject subtitles here -->
-        Loading subtitles...
-      </div>
-    </div>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="../src/main.tsx"></script>
+    <script src="./node_modules/flowbite/dist/flowbite.min.js"></script>
   </body>
-  <script>
-    require('./renderer.js');
-  </script>
 </html>
