@@ -24,6 +24,7 @@
 - [ ] Turn on/off the subtitle track on VLC
 - [ ] Dynamically change the subtitle track
 - [ ] e2e tests in playwright
+- [ ] Option to auto-play when a subtitle is clicked
 - [ ] Improve the telnet interface with auto-discovery/re-connect of telnet connection
 
 # Install
