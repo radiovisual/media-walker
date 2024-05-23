@@ -1,33 +1,34 @@
 # Media Walker
 
-> Use a video's subtitles as a remote control for the VLC Media Player
+> Use a video's subtitles as a remote control for the VLC Media Player. Great for language learning!
 
-This app will render a simple interface allowing you to use a video's subtitle
-file as a way of navigating and controlling playback of a video in the VLC Media Player, utilizing VLC's telnet interface. It was built as a language-learning
-tool for those who like to use movies as a way to study languages.
-
-:boom: _NOTE:_ **This is very much a work in progress!** :boom:
+:boom: **This is very much a work in progress!** :boom:
 
 # TODO
 
 - [ ] Style the UI
+- [ ] Load dual-language subtitles
+- [ ] Bundle the app for distribution in app stores
 - [ ] Load the movies and subs via the UI
+- [ ] Loop video playback around a specific subtitle (or group of subtitles)
 - [ ] Cleanup the codebase
 - [ ] Find the subtitle files automatically
 - [ ] Auto-scrolling subtitle list to sync with video playback
 - [ ] Search the subtitles
 - [ ] Open DVDs
-- [ ] Easy lookup of words on Google Translate
+- [ ] Easy lookup of words on Google Translate, DeepL, etc
 - [ ] Plugins that allow different type of word lookup (APIs, etc)
 - [ ] Wordbank to store translation of words
+- [ ] Create a quizlet of unique words used in the subtitles
 - [ ] Internationalized UI
-- [ ] Turn on/off the subtitle track on VLC (not sure this is possible with telnet interface)
+- [ ] Turn on/off the subtitle track on VLC
+- [ ] Dynamically change the subtitle track
 - [ ] e2e tests in playwright
-- [ ] When scrolling the subtitles, the video will seek "in sync" with scrolling.
+- [ ] Improve the telnet interface with auto-discovery/re-connect of telnet connection
 
 # Install
 
-Until this application reaches `v1.0.0`, you must clone this repo to use the app.
+Until this application is bundled for distribution, you must clone this repo to use the app.
 
 ```
 $ npm install -g electron
@@ -68,7 +69,7 @@ vlc --extraintf telnet --telnet-password mediawalker sample-media/sample.mp4
 npm run start
 ```
 
-:bulb: For a quick demo you can use the files: sample-media/sample.mp4 and sample-media/sample.srt
+:bulb: For a quick demo you can use the files: sample-media/sample.mp4 and sample-media/sample.srt in this repo.
 
 # Sample Video with Subtitles
 
