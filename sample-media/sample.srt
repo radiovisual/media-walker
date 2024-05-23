@@ -1,0 +1,23 @@
+1
+00:00:00,000 --> 00:00:04,500
+Hello, let's study some colors in German
+
+2
+00:00:05,000 --> 00:00:14,500
+This color is blue
+
+3
+00:00:15,000 --> 00:00:24,500
+This color is red
+
+4
+00:00:25,000 --> 00:00:34,500
+This color is green
+
+5
+00:00:35,000 --> 00:00:44,500
+This color is yellow
+
+6
+00:00:45,000 --> 00:00:49,500
+Goodbye

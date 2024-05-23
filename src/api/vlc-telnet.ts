@@ -1,38 +1,6 @@
-'use strict';
+import { spawn } from "child_process";
+
 /*
-> help
-+----[ VLM commands ]
-|help
-|    Commands Syntax:
-|        new (name) vod|broadcast|schedule [properties]
-|        setup (name) (properties)
-|        show [(name)|media|schedule]
-|        del (name)|all|media|schedule
-|        control (name) [instance_name] (command)
-|        save (config_file)
-|        export
-|        load (config_file)
-|    Media Proprieties Syntax:
-|        input (input_name)
-|        inputdel (input_name)|all
-|        inputdeln input_number
-|        output (output_name)
-|        option (option_name)[=value]
-|        enabled|disabled
-|        loop|unloop (broadcast only)
-|        mux (mux_name)
-|    Schedule Proprieties Syntax:
-|        enabled|disabled
-|        append (command_until_rest_of_the_line)
-|        date (year)/(month)/(day)-(hour):(minutes):(seconds)|now
-|        period (years_aka_12_months)/(months_aka_30_days)/(days)-(hours):(minutes):(seconds)
-|        repeat (number_of_repetitions)
-|    Control Commands Syntax:
-|        play [input_number]
-|        pause
-|        stop
-|        seek [+-](percentage) | [+-](seconds)s | [+-](milliseconds)ms
-+----[ CLI commands ]
 | add XYZ  . . . . . . . . . . . . . . . . . . . . add XYZ to playlist
 | enqueue XYZ  . . . . . . . . . . . . . . . . . queue XYZ to playlist
 | playlist . . . . . . . . . . . . .  show items currently in playlist
@@ -68,7 +36,7 @@
 | rate [playback rate] . . . . . . . . . .  set playback rate to value
 | frame  . . . . . . . . . . . . . . . . . . . . . play frame by frame
 | fullscreen, f, F [on|off]  . . . . . . . . . . . . toggle fullscreen
-| info . . . . . . . . . . . . .  information about the current stream
+| info [X] . .  information about the current stream (or specified id)
 | stats  . . . . . . . . . . . . . . . .  show statistical information
 | get_time . . . . . . . . .  seconds elapsed since stream's beginning
 | is_playing . . . . . . . . . . . .  1 if a stream plays, 0 otherwise
@@ -97,34 +65,121 @@
 | logout . . . . . . . . . . . . . .  exit (if in a socket connection)
 | quit . . . . . . . .  quit VLC (or logout if in a socket connection)
 | shutdown . . . . . . . . . . . . . . . . . . . . . . .  shutdown VLC
-+----[ end of help ]
->
-
 */
-const spawn = require('child_process').spawn;
 
-const telnet = spawn('telnet', ['localhost', '4212']);
+export default class VLCTelnet {
+  private telnetInstance;
 
-telnet.stdout.on('data', (data) => {
-  if (data.indexOf('Password:') > -1) {
-      telnet.stdin.write('mediawalker\n');
+  private VLC_TELNET_COMMAND = {
+    play: "play",
+    pause: "pause",
+    volumeUp: "volup 2",
+    volumeDown: "voldown 2",
+    speedDown: "slower",
+    speedNormal: "normal",
+    speedUp: "faster",
+    seek: (timestampToSeek: string) => `seek ${timestampToSeek}`,
+  };
+
+  public static VLC_COMMAND = {
+    play: "play",
+    pause: "pause",
+    volumeUp: "volume-up",
+    volumeDown: "volume-down",
+    speedDown: "speed-down",
+    speedNormal: "speed-normal",
+    speedUp: "speed-up",
+    seek: "seek",
+  };
+
+  constructor(port = 4212) {
+    this.telnetInstance = spawn("telnet", ["localhost", String(port)]);
+
+    this.telnetInstance.stdout.on("data", (data) => {
+      if (data.indexOf("Password:") > -1) {
+        this.telnetInstance.stdin.write("mediawalker\n");
+      }
+      console.log(`stdout: ${data}`);
+    });
+
+    this.telnetInstance.stderr.on("data", (data) => {
+      console.log(`stderr: ${data}`);
+    });
+
+    this.telnetInstance.on("close", (code) => {
+      console.log(`child process exited with code ${code}`);
+      this.telnetInstance.stdin.end();
+    });
   }
-  console.log(`stdout: ${data}`);
-});
 
-telnet.stderr.on('data', (data) => {
-  console.log(`stderr: ${data}`);
-});
+  public processCommand(commandString: string) {
+    const command = VLCTelnet.VLC_COMMAND;
 
-telnet.on('close', (code) => {
-  console.log(`child process exited with code ${code}`);
-  telnet.stdin.end();
-});
+    if (commandString.startsWith("seek")) {
+      return this.seek(commandString);
+    }
 
-function send(cmd) {
-  telnet.stdin.write(`${cmd}\n`);
-}
+    switch (commandString) {
+      case command.play:
+        return this.play();
+      case command.pause:
+        return this.pause();
+      case command.volumeDown:
+        return this.volumeDown();
+      case command.volumeUp:
+        return this.volumeUp();
+      case command.speedUp:
+        return this.speedUp();
+      case command.speedDown:
+        return this.speedDown();
+      case command.speedNormal:
+        return this.speedNormal();
+      default:
+        console.log(`Unknown command: ${commandString}`);
+    }
+  }
 
-module.exports = {
-  send
+  public shutDown() {
+    this.telnetInstance.stdin.end();
+  }
+
+  public send(cmd: string) {
+    this.telnetInstance.stdin.write(`${cmd}\n`);
+  }
+
+  public play() {
+    this.send(this.VLC_TELNET_COMMAND.play);
+  }
+
+  public volumeDown() {
+    this.send(this.VLC_TELNET_COMMAND.volumeDown);
+  }
+
+  public volumeUp() {
+    this.send(this.VLC_TELNET_COMMAND.volumeUp);
+  }
+
+  public speedDown() {
+    this.send(this.VLC_TELNET_COMMAND.speedDown);
+  }
+
+  public speedUp() {
+    this.send(this.VLC_TELNET_COMMAND.speedUp);
+  }
+
+  public speedNormal() {
+    this.send(this.VLC_TELNET_COMMAND.speedNormal);
+  }
+
+  public pause() {
+    this.send(this.VLC_TELNET_COMMAND.pause);
+  }
+
+  public seek(timeToSeek: string | number) {
+    let normalizedTime = timeToSeek;
+    if (typeof timeToSeek === "string" && timeToSeek.startsWith("seek")) {
+      normalizedTime = timeToSeek.substring(4).trim();
+    }
+    this.send(this.VLC_TELNET_COMMAND.seek(String(normalizedTime)));
+  }
 }
